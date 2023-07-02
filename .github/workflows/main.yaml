@@ -3,12 +3,16 @@ name: dotnet package
 on: [push]
 
 jobs:
-  build:
+  build-dotnet-app:
 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         dotnet-version: [ '7.0.x' ]
+        
+    defaults:
+      run:
+        working-directory: src/TriangleAPI/TriangleAPI
 
     steps:
       - uses: actions/checkout@v3
@@ -17,8 +21,8 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore "/src/TriangleAPI/TriangleAPI.csproj"
+        run: dotnet restore
       - name: Build
-        run: dotnet build "/src/TriangleAPI/TriangleAPI.csproj" --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore
       - name: Test
         run: dotnet test "/src/Triangle.Tests/Triangle.Tests.csproj" --no-restore --verbosity normal
