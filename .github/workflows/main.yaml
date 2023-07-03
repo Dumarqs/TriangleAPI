@@ -17,9 +17,18 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
-    - name: Restore dependencies
-      run: dotnet restore
+
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Setup Nuget
+      uses: Nuget/setup-nuget@v1.0.5
+
+      - name: Restore nuget packages
+      run: nuget restore src/TriangleAPI/TriangleAPI.csproj
+      
     - name: Build
-      run: dotnet build --no-restore
+      run: msbuild src/TriangleAPI/TriangleAPI.csproj
+      
     - name: Test
       run: dotnet test --no-build --verbosity normal
