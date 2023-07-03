@@ -24,11 +24,11 @@ jobs:
     - name: Setup Nuget
       uses: Nuget/setup-nuget@v1.0.5
 
-      - name: Restore nuget packages
+    - name: Restore nuget packages
       run: nuget restore src/TriangleAPI/TriangleAPI.csproj
-      
+
     - name: Build
       run: msbuild src/TriangleAPI/TriangleAPI.csproj
-      
+
     - name: Test
       run: dotnet test --no-build --verbosity normal
