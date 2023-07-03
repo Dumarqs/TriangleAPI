@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Infra.CrossCutting.Logging.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Service.Services.Interfaces;
 
 namespace TriangleAPI.Controllers
 {
@@ -7,15 +9,20 @@ namespace TriangleAPI.Controllers
     [ApiController]
     public class TriangleController : ControllerBase
     {
-        public TriangleController() { 
-        
+        private readonly ILoggerAdapter<TriangleController> _logger;
+        private readonly ITriangleService _triangleService;
+
+        public TriangleController(ILoggerAdapter<TriangleController> logger, ITriangleService triangleService) {
+            _logger = logger;
+            _triangleService = triangleService;
         }
 
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetMaximumTotalTriangle()
         {
-            throw new Exception("Not implemented");
+            _logger.LogInformation("Getting the total");
+            return Ok(await _triangleService.GetMaximumTotalFromTextFile());
         }
     }
 }

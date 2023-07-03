@@ -1,3 +1,5 @@
+using Infra.CrossCutting.IoC;
+using TriangleAPI.Middlewares;
 
 namespace TriangleAPI
 {
@@ -14,19 +16,31 @@ namespace TriangleAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.ServicesLogger();
+            builder.Services.ServicesFileManager();
+            builder.Services.ServicesApplication();
+
+            builder.Services.AddHealthChecks();
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            else
+            {
+                app.UseHsts();
+            }
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
+            app.MapHealthChecks("/check");
 
             app.MapControllers();
 

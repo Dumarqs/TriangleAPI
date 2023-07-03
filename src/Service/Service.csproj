@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Infra.CrossCutting.FileManager\Infra.CrossCutting.FileManager.csproj" />
+    <ProjectReference Include="..\Infra.CrossCutting.Logging\Infra.CrossCutting.Logging.csproj" />
+  </ItemGroup>
+
 </Project>

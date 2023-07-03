@@ -4,10 +4,10 @@ using TriangleAPI;
 
 namespace Triangle.API.Tests
 {
-    public class TriangleControllerTest : IClassFixture<WebApplicationFactory<Program>>
+    public class TriangleControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
         readonly HttpClient _client;
-        public TriangleControllerTest(WebApplicationFactory<Program> webApplication)
+        public TriangleControllerTests(WebApplicationFactory<Program> webApplication)
         {
             _client = webApplication.CreateClient();
         }
