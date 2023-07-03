@@ -5,7 +5,7 @@ namespace Infra.CrossCutting.FileManager
 {
     public class LoadTextFile : ILoadTextFile
     {
-        private readonly string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"Content\Triangle.txt");
+        private readonly string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $"Content{Path.DirectorySeparatorChar}Triangle.txt");
 
         public async Task<List<string>> LoadFile()
         {
